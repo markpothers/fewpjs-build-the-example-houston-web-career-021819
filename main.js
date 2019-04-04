@@ -6,6 +6,35 @@ const FULL_HEART = '♥'
 
 
 
+let hearts = document.querySelectorAll('.like-glyph')
+
+hearts.forEach(function(heart){
+  heart.addEventListener('click', function(){
+    mimicServerCall()
+      .then(function(){
+        if (heart.classList.contains('activated-heart')) {
+            heart.textContent = EMPTY_HEART
+            heart.classList.remove('activated-heart')
+        } else {
+        heart.textContent = FULL_HEART
+        heart.classList.add('activated-heart')
+        }
+    })
+      .catch(function(){
+        let modal = document.querySelector('#modal')
+        modal.classList.remove('hidden')
+        setTimeout(clearError, 5000)
+      })
+  })
+})
+
+
+
+
+function clearError(){
+  let modal = document.querySelector('#modal')
+  modal.classList.add('hidden')
+}
 
 //------------------------------------------------------------------------------
 // Ignore after this point. Used only for demo purposes
